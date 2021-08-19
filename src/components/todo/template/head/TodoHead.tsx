@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { getDate } from 'utils/date';
 
 const TodoHeadBlock = styled.div`
   display: flex;
@@ -23,13 +24,23 @@ const DayText = styled.div`
 
 const TodoHead = (): ReactElement => {
   //@TODO 현재 시간을 표시해야합니다.
-  const dayString = 'Tuesday';
-  const dateString = 'July 20, 2021';
+  const [date, setDate] = useState('');
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDate(getDate());
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  const [dayString, ...dateString] = date.split(',');
 
   return (
     <TodoHeadBlock>
       <DayText>{dayString}</DayText>
-      <DateText>{dateString}</DateText>
+      <DateText>{dateString.join(',').trim()}</DateText>
     </TodoHeadBlock>
   );
 };
