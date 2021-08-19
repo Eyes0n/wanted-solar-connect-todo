@@ -18,6 +18,7 @@ interface IWrapperProp {
 }
 
 const StyledSpinnerWrapper = styled(Row)<IWrapperProp>`
+  height: 100vh;
   background-color: ${(styleProps) =>
     styleProps['data-mask'] ? 'rgba(0, 0, 0, 0.1)' : 'transparent'};
 `;
