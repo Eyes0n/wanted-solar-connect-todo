@@ -23,8 +23,7 @@ const DayText = styled.div`
 `;
 
 const TodoHead = (): ReactElement => {
-  //@TODO 현재 시간을 표시해야합니다.
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(getDate());
 
   useEffect(() => {
     const timer = setInterval(() => {
