@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { DatePicker, Modal } from 'antd';
 import { Itodo } from 'components/todo/TodoService';
@@ -64,7 +64,7 @@ interface TodoCreateProps {
 const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): ReactElement => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  const [completedDate, setCompletedDate] = useState('');
+  const [completedDate, setCompletedDate] = useState(moment().format('YYYY-MM-DD'));
 
   const handleToggle = () => setOpen(!open);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
@@ -109,7 +109,8 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
             value={value}
           />
           <SDatePicker
-            value={completedDate !== '' ? moment(completedDate) : null}
+            value={completedDate !== '' ? moment(completedDate) : moment()}
+            disabledDate={(current) => current && current < moment.min(moment().subtract(1, 'd'))}
             onChange={onChange}
           />
 
