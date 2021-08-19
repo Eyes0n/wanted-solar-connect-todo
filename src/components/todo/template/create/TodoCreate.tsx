@@ -1,6 +1,6 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { DatePicker, Modal } from 'antd';
 import { Itodo } from 'components/todo/TodoService';
@@ -91,7 +91,7 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
 
     setValue(''); // input 초기화
     setOpen(false); // open 닫기
-    setCompletedDate('');
+    setCompletedDate(moment().format('YYYY-MM-DD'));
   };
 
   const onChange = (_date: any, dateString: string): void => {
