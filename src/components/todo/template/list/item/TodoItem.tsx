@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
-import { CheckOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
+
+import { CheckOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import styled, { css } from 'styled-components';
 import { Itodo } from 'components/todo/TodoService';
 
@@ -69,8 +71,28 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps): ReactElement
     toggleTodo(todo.id);
   };
 
+  const { confirm } = Modal;
+
+  function showConfirm() {
+    confirm({
+      title: 'Do you Want to delete these items?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'incomplete items',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        console.log('OK');
+        removeTodo(todo.id);
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
+
   const handleRemove = () => {
-    removeTodo(todo.id);
+    todo.done ? removeTodo(todo.id) : showConfirm();
   };
 
   return (
