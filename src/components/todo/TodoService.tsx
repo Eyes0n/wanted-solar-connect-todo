@@ -44,7 +44,6 @@ export const useTodo = (): any => {
         id: nextId,
       })
     );
-    incrementNextId();
   };
 
   const loadData = () => {
