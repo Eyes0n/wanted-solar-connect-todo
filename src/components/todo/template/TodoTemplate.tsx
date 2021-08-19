@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const TodoTemplateBlock = styled.div`
@@ -21,7 +21,7 @@ const TodoTemplateBlock = styled.div`
   flex-direction: column;
 `;
 
-function TodoTemplate(props: any) {
+function TodoTemplate(props: any): ReactElement {
   return <TodoTemplateBlock>{props.children}</TodoTemplateBlock>;
 }
 

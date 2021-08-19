@@ -9,7 +9,7 @@ export type Itodo = {
 
 let initialTodos: Itodo[] = [];
 
-export const useTodo = () => {
+export const useTodo = (): any => {
   const [todoState, setTodoState] = useState(initialTodos);
   let nextIdState = 0;
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Itodo } from 'components/todo/TodoService';
@@ -55,7 +55,7 @@ interface TodoCreateProps {
   incrementNextId: () => void;
 }
 
-const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps) => {
+const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): ReactElement => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 const TodoHeadBlock = styled.div`
@@ -21,7 +21,7 @@ const DayText = styled.div`
   padding-top: 5px;
 `;
 
-const TodoHead = () => {
+const TodoHead = (): ReactElement => {
   //@TODO 현재 시간을 표시해야합니다.
   const dayString = 'Tuesday';
   const dateString = 'July 20, 2021';

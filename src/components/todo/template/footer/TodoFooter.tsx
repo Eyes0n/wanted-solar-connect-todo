@@ -1,6 +1,6 @@
-import { Itodo } from 'components/todo/TodoService';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { Itodo } from 'components/todo/TodoService';
 
 const TodoFooterBlock = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ interface HooksTodoHeadProps {
   todos: Itodo[];
 }
 
-const Todofooter = ({ todos }: HooksTodoHeadProps) => {
+const Todofooter = ({ todos }: HooksTodoHeadProps): ReactElement => {
   const undoneTasks = todos.filter((todo) => !todo.done);
   return (
     <TodoFooterBlock>
