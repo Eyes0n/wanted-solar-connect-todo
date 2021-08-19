@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { DatePicker } from 'antd';
+import { DatePicker, Modal } from 'antd';
 import { Itodo } from 'components/todo/TodoService';
 
 const CircleButton = styled.button<{ open: boolean }>`
@@ -69,8 +69,17 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
   const handleToggle = () => setOpen(!open);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
 
+  function error() {
+    Modal.error({
+      title: 'Please fill in with no blanks',
+      content: 'The todo entry or completion target date is empty.',
+    });
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // 새로고침 방지
+
+    if (!value || !completedDate) return error();
 
     createTodo({
       id: nextId,
