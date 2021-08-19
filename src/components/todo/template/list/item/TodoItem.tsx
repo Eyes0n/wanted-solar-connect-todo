@@ -54,6 +54,10 @@ const Text = styled.div<{ done: boolean }>`
     `}
 `;
 
+const CompletedDateText = styled(Text)`
+  flex: 0.5;
+`;
+
 interface TodoItemProps {
   toggleTodo: (id: number) => void;
   removeTodo: (id: number) => void;
@@ -75,6 +79,11 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps): ReactElement
         {todo.done && <CheckOutlined />}
       </CheckCircle>
       <Text done={todo.done}>{todo.text}</Text>
+      {todo.completedDate && (
+        <CompletedDateText done={todo.done}>
+          {`complete: ${todo.completedDate.substring(5)}`}
+        </CompletedDateText>
+      )}
       <Remove onClick={handleRemove}>
         <DeleteOutlined />
       </Remove>

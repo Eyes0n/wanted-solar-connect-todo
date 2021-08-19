@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { PlusCircleOutlined } from '@ant-design/icons';
+import { DatePicker } from 'antd';
 import { Itodo } from 'components/todo/TodoService';
 
 const CircleButton = styled.button<{ open: boolean }>`
@@ -36,6 +37,7 @@ const InsertForm = styled.form`
 `;
 
 const Input = styled.input`
+  flex: 1;
   padding: 12px;
   border: 1px solid #dddddd;
   width: 100%;
@@ -49,6 +51,9 @@ const Input = styled.input`
   }
 `;
 
+const SDatePicker = styled(DatePicker)`
+  flex: 0.25;
+`;
 interface TodoCreateProps {
   nextId: number;
   createTodo: (todo: Itodo) => void;
@@ -58,6 +63,7 @@ interface TodoCreateProps {
 const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): ReactElement => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
+  const [completedDate, setCompletedDate] = useState('');
 
   const handleToggle = () => setOpen(!open);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
@@ -69,11 +75,17 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
       id: nextId,
       text: value,
       done: false,
+      completedDate: completedDate,
     });
     incrementNextId(); // nextId 하나 증가
 
     setValue(''); // input 초기화
     setOpen(false); // open 닫기
+    setCompletedDate('');
+  };
+
+  const onChange = (_date: any, dateString: string): void => {
+    setCompletedDate(dateString);
   };
 
   return (
@@ -86,6 +98,7 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
             onChange={handleChange}
             value={value}
           />
+          <SDatePicker onChange={onChange} />
 
           <CircleButton onClick={handleToggle} open={open}>
             <PlusCircleOutlined />
