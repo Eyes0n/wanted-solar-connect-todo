@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { PlusCircleOutlined } from '@ant-design/icons';
