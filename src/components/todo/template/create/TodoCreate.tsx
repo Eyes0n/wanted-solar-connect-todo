@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { DatePicker } from 'antd';
 import { Itodo } from 'components/todo/TodoService';
@@ -98,7 +99,10 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
             onChange={handleChange}
             value={value}
           />
-          <SDatePicker onChange={onChange} />
+          <SDatePicker
+            value={completedDate !== '' ? moment(completedDate) : null}
+            onChange={onChange}
+          />
 
           <CircleButton onClick={handleToggle} open={open}>
             <PlusCircleOutlined />
