@@ -32,7 +32,7 @@ export const useTodo = (): any => {
   };
 
   const removeTodo = (id: number) => {
-    setTodoState((prevState) => prevState.filter((todo: Itodo) => todo.id === id));
+    setTodoState((prevState) => prevState.filter((todo: Itodo) => todo.id !== id));
   };
 
   const createTodo = (todo: Itodo) => {
