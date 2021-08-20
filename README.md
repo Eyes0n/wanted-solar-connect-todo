@@ -22,6 +22,8 @@
 
 ✅ antd 모달로 todo 미입력 or 완료 안된 todo 삭제 시 경고 메시지 출력 구현
 
+✅ context api & useReducer 적용으로 인한 TodoService.tsx제거
+
 ## 설치 및 시작 방법
 
 ```js
