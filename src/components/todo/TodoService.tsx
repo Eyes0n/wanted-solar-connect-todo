@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback } from 'react';
 import { useState, useEffect } from 'react';
 
 export type Itodo = {
@@ -14,13 +14,28 @@ let nextIdState = 0;
 export const useTodo = (): any => {
   const [todoState, setTodoState] = useState(initialTodos);
 
+  const loadData = useCallback(() => {
+    const data = localStorage.getItem('todos') || '[]';
+    initialTodos = JSON.parse(data);
+
+    if (initialTodos && initialTodos.length >= 1) {
+      nextIdState = initialTodos[initialTodos.length - 1].id;
+      incrementNextId();
+    }
+    setTodoState(initialTodos);
+  }, []);
+
+  const saveData = useCallback(() => {
+    localStorage.setItem('todos', JSON.stringify(todoState));
+  }, [todoState]);
+
   useEffect(() => {
     loadData();
-  }, []);
+  }, [loadData]);
 
   useEffect(() => {
     saveData();
-  }, [todoState]);
+  }, [saveData, todoState]);
 
   const incrementNextId = () => {
     nextIdState = nextIdState + 1;
@@ -45,21 +60,6 @@ export const useTodo = (): any => {
         id: nextId,
       })
     );
-  };
-
-  const loadData = () => {
-    const data = localStorage.getItem('todos') || '[]';
-    initialTodos = JSON.parse(data);
-
-    if (initialTodos && initialTodos.length >= 1) {
-      nextIdState = initialTodos[initialTodos.length - 1].id;
-      incrementNextId();
-    }
-    setTodoState(initialTodos);
-  };
-
-  const saveData = () => {
-    localStorage.setItem('todos', JSON.stringify(todoState));
   };
 
   return {
