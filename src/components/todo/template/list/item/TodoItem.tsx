@@ -71,13 +71,13 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps): ReactElement => {
-  const handleToggle = () => {
+  const handleToggle = (): void => {
     toggleTodo(todo.id);
   };
 
   const { confirm } = Modal;
 
-  function showConfirm() {
+  function showConfirm(): void {
     confirm({
       title: 'Do you Want to delete these items?',
       icon: <ExclamationCircleOutlined />,
@@ -95,7 +95,7 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps): ReactElement
     });
   }
 
-  const handleRemove = () => {
+  const handleRemove = (): void => {
     todo.done ? removeTodo(todo.id) : showConfirm();
   };
 

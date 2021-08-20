@@ -66,17 +66,18 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
   const [value, setValue] = useState('');
   const [completedDate, setCompletedDate] = useState(moment().format('YYYY-MM-DD'));
 
-  const handleToggle = () => setOpen(!open);
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
+  // TODO: 넌 뭐하는 애니?
+  const handleToggle = (): void => setOpen(!open);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => setValue(e.target.value);
 
-  function error() {
+  function error(): void {
     Modal.error({
       title: 'Please fill in with no blanks',
       content: 'The todo entry or completion target date is empty.',
     });
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault(); // 새로고침 방지
 
     if (!value || !completedDate) return error();

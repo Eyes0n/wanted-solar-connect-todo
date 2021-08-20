@@ -21,7 +21,7 @@ interface HooksTodoHeadProps {
 }
 
 const Todofooter = ({ todos }: HooksTodoHeadProps): ReactElement => {
-  const undoneTasks = todos.filter((todo) => !todo.done);
+  const undoneTasks: Itodo[] = todos.filter((todo) => !todo.done);
   return (
     <TodoFooterBlock>
       <LeftText className="tasks-left">{undoneTasks.length} items left</LeftText>
