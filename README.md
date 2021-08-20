@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+# Solar Connext Todo App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[🔗 배포 링크]('https://solar-connect-todo-app.netlify.app')
 
-## Available Scripts
+## 구현 기능
 
-In the project directory, you can run:
+✅ Spiner 컴포넌트 중앙 정렬
 
-### `npm start`
+✅ 모든 함수의 매개변수 및 리턴 타입 지정
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+✅ toggleTodo함수 기능 구현
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+✅ removeTodo함수 기능 수정
 
-### `npm test`
+✅ 로컬스토리지에서 불러오는 data가 null인 경우에 `[]` 으로 초기값 설정
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+✅ todo추가 시 nextId 1씩 증가로 수정 및 초기화 현상 수정
 
-### `npm run build`
+✅ 현재 날짜 출력 구현
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+✅ 완료 목표일 기능 추가 및 오늘 날짜 기준 이전 날짜 선택 불가 기능 구현
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+✅ antd 모달로 todo 미입력 or 완료 안된 todo 삭제 시 경고 메시지 출력 구현
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 설치 및 시작 방법
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```js
+- git clone https://github.com/Eyes0n/wanted-solar-connect.git
+- cd wanted-solar-connect-todo
+- npm install
+- npm start
+```
