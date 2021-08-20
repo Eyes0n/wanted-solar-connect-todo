@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Modal } from 'antd';
 import { CheckOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Itodo } from 'components/todo/TodoService';
+import { useTodoDispatch } from 'context/TodoContext';
 
 const Remove = styled.div`
   display: flex;
@@ -65,14 +66,14 @@ const CompletedDateText = styled(Text)`
 `;
 
 interface TodoItemProps {
-  toggleTodo: (id: number) => void;
-  removeTodo: (id: number) => void;
   todo: Itodo;
 }
 
-const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps): ReactElement => {
+const TodoItem = ({ todo }: TodoItemProps): ReactElement => {
+  const dispatch = useTodoDispatch();
+
   const handleToggle = (): void => {
-    toggleTodo(todo.id);
+    dispatch({ type: 'TOGGLE', id: todo.id });
   };
 
   const { confirm } = Modal;
@@ -86,7 +87,7 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps): ReactElement
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        removeTodo(todo.id);
+        dispatch({ type: 'REMOVE', id: todo.id });
       },
       onCancel() {
         return;
@@ -95,7 +96,7 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps): ReactElement
   }
 
   const handleRemove = (): void => {
-    todo.done ? removeTodo(todo.id) : showConfirm();
+    todo.done ? dispatch({ type: 'REMOVE', id: todo.id }) : showConfirm();
   };
 
   return (

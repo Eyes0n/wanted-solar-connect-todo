@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import TodoItem from './item/TodoItem';
-import { Itodo } from 'components/todo/TodoService';
+import { useTodoState } from 'context/TodoContext';
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -10,19 +10,14 @@ const TodoListBlock = styled.div`
   overflow-y: auto;
 `;
 
-interface TodoListProps {
-  todos: Itodo[];
-  toggleTodo: (id: number) => void;
-  removeTodo: (id: number) => void;
-}
+const TodoList = (): ReactElement => {
+  const todos = useTodoState();
 
-const TodoList = ({ toggleTodo, removeTodo, todos }: TodoListProps): ReactElement => {
   return (
     <TodoListBlock>
-      {todos &&
-        todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} removeTodo={removeTodo} />
-        ))}
+      {todos?.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
     </TodoListBlock>
   );
 };

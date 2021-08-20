@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { Itodo } from 'components/todo/TodoService';
+import { useTodoState } from 'context/TodoContext';
 
 const TodoFooterBlock = styled.div`
   display: flex;
@@ -16,11 +17,9 @@ const LeftText = styled.div`
   font-size: 18px;
 `;
 
-interface HooksTodoHeadProps {
-  todos: Itodo[];
-}
+const Todofooter = (): ReactElement => {
+  const todos = useTodoState();
 
-const Todofooter = ({ todos }: HooksTodoHeadProps): ReactElement => {
   const undoneTasks: Itodo[] = todos.filter((todo) => !todo.done);
   return (
     <TodoFooterBlock>
