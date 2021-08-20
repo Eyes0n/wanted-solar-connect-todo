@@ -86,11 +86,10 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps): ReactElement
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        console.log('OK');
         removeTodo(todo.id);
       },
       onCancel() {
-        console.log('Cancel');
+        return;
       },
     });
   }
