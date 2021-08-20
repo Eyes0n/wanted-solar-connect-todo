@@ -8,13 +8,22 @@ export type Itodo = {
   completedDate: string;
 };
 
+interface IUseTodo {
+  todoState: Itodo[];
+  nextIdState: number;
+  incrementNextId(): void;
+  toggleTodo(id: number): void;
+  removeTodo(id: number): void;
+  createTodo(todo: Itodo): void;
+}
+
 let initialTodos: Itodo[] = [];
 let nextIdState = 0;
 
-export const useTodo = (): any => {
+export const useTodo = (): IUseTodo => {
   const [todoState, setTodoState] = useState(initialTodos);
 
-  const loadData = useCallback(() => {
+  const loadData = useCallback((): void => {
     const data = localStorage.getItem('todos') || '[]';
     initialTodos = JSON.parse(data);
 
@@ -25,7 +34,7 @@ export const useTodo = (): any => {
     setTodoState(initialTodos);
   }, []);
 
-  const saveData = useCallback(() => {
+  const saveData = useCallback((): void => {
     localStorage.setItem('todos', JSON.stringify(todoState));
   }, [todoState]);
 
@@ -37,21 +46,21 @@ export const useTodo = (): any => {
     saveData();
   }, [saveData, todoState]);
 
-  const incrementNextId = () => {
+  const incrementNextId = (): void => {
     nextIdState = nextIdState + 1;
   };
 
-  const toggleTodo = (id: number) => {
+  const toggleTodo = (id: number): void => {
     setTodoState((prevState) =>
       prevState.map((todo: Itodo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
     );
   };
 
-  const removeTodo = (id: number) => {
+  const removeTodo = (id: number): void => {
     setTodoState((prevState) => prevState.filter((todo: Itodo) => todo.id !== id));
   };
 
-  const createTodo = (todo: Itodo) => {
+  const createTodo = (todo: Itodo): void => {
     const nextId = nextIdState + 1;
 
     setTodoState((prevState) =>
