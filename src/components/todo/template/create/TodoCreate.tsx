@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { DatePicker, Modal } from 'antd';
-import { Itodo } from 'components/todo/TodoService';
+import { useTodoDispatch } from 'context/TodoContext';
 
 const CircleButton = styled.button`
   display: flex;
@@ -43,6 +43,7 @@ const Input = styled.input`
   font-size: 21px;
   box-sizing: border-box;
   color: #119955;
+
   &::placeholder {
     color: #dddddd;
     font-size: 16px;
@@ -51,16 +52,17 @@ const Input = styled.input`
 
 const SDatePicker = styled(DatePicker)`
   flex: 0.25;
-`;
-interface TodoCreateProps {
-  nextId: number;
-  createTodo: (todo: Itodo) => void;
-  incrementNextId: () => void;
-}
 
-const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): ReactElement => {
+  input {
+    color: #119955;
+    font-weight: 600;
+  }
+`;
+
+const TodoCreate = (): ReactElement => {
   const [value, setValue] = useState('');
   const [completedDate, setCompletedDate] = useState(moment().format('YYYY-MM-DD'));
+  const dispatch = useTodoDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => setValue(e.target.value);
 
@@ -73,16 +75,9 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
     if (!value || !completedDate) return error();
 
-    createTodo({
-      id: nextId,
-      text: value,
-      done: false,
-      completedDate: completedDate,
-    });
-    incrementNextId();
+    dispatch({ type: 'CREATE', text: value, completedDate: completedDate });
 
     setValue('');
     setCompletedDate(moment().format('YYYY-MM-DD'));

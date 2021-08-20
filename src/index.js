@@ -1,5 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
+import { TodoProvider } from 'context/TodoContext';
 import { createGlobalStyle } from 'styled-components';
 import App from './App';
 
@@ -12,7 +12,9 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <>
     <GlobalStyle />
-    <App />
+    <TodoProvider>
+      <App />
+    </TodoProvider>
   </>,
   document.getElementById('root')
 );
