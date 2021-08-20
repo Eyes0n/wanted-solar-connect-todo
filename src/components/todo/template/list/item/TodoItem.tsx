@@ -1,8 +1,7 @@
 import React, { ReactElement } from 'react';
-import { Modal } from 'antd';
-
-import { CheckOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import styled, { css } from 'styled-components';
+import { Modal } from 'antd';
+import { CheckOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Itodo } from 'components/todo/TodoService';
 
 const Remove = styled.div`
@@ -11,6 +10,11 @@ const Remove = styled.div`
   justify-content: center;
   color: #119955;
   font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
 `;
 
 const TodoItemBlock = styled.div`
