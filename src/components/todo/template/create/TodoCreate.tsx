@@ -5,22 +5,19 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 import { DatePicker, Modal } from 'antd';
 import { Itodo } from 'components/todo/TodoService';
 
-const CircleButton = styled.button<{ open: boolean }>`
-  background: #33bb77;
-  width: 50px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  font-size: 60px;
-  left: 50%;
-  transform: translate(50%, 0%);
-  color: white;
-  border-radius: 50%;
-  border: none;
-  outline: none;
+const CircleButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: #33bb77;
+  color: white;
+  font-size: 60px;
+  transform: translate(50%, 0%);
+  outline: none;
 `;
 
 const InsertFormPositioner = styled.div`
@@ -62,12 +59,9 @@ interface TodoCreateProps {
 }
 
 const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): ReactElement => {
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [completedDate, setCompletedDate] = useState(moment().format('YYYY-MM-DD'));
 
-  // TODO: 넌 뭐하는 애니?
-  const handleToggle = (): void => setOpen(!open);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => setValue(e.target.value);
 
   function error(): void {
@@ -78,7 +72,7 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault(); // 새로고침 방지
+    e.preventDefault();
 
     if (!value || !completedDate) return error();
 
@@ -88,10 +82,9 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
       done: false,
       completedDate: completedDate,
     });
-    incrementNextId(); // nextId 하나 증가
+    incrementNextId();
 
-    setValue(''); // input 초기화
-    setOpen(false); // open 닫기
+    setValue('');
     setCompletedDate(moment().format('YYYY-MM-DD'));
   };
 
@@ -115,7 +108,7 @@ const TodoCreate = ({ nextId, createTodo, incrementNextId }: TodoCreateProps): R
             onChange={onChange}
           />
 
-          <CircleButton onClick={handleToggle} open={open}>
+          <CircleButton>
             <PlusCircleOutlined />
           </CircleButton>
         </InsertForm>
