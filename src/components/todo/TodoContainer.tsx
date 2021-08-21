@@ -5,6 +5,7 @@ import TodoList from './template/list/TodoList';
 import TodoCreate from './template/create/TodoCreate';
 import TodoFooter from './template/footer/TodoFooter';
 import { useTodoDispatch, useTodoState } from 'context/TodoContext';
+import { base64crypto } from 'utils/base64crypto';
 
 const TodoContainer = (): ReactElement => {
   const todos = useTodoState();
@@ -21,6 +22,7 @@ const TodoContainer = (): ReactElement => {
 
   useEffect(() => {
     loadData();
+    console.log(base64crypto('1234'));
   }, [loadData]);
 
   useEffect(() => {
