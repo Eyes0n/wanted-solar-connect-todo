@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import TodoItem from './item/TodoItem';
-import { useTodoState } from 'context/TodoContext';
+import { useUserState } from 'context/TodoContext';
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -11,7 +11,7 @@ const TodoListBlock = styled.div`
 `;
 
 const TodoList = (): ReactElement => {
-  const todos = useTodoState();
+  const todos = useUserState();
 
   return (
     <TodoListBlock>

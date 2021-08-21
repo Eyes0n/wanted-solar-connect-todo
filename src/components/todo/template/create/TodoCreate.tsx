@@ -73,6 +73,7 @@ const TodoCreate = (): ReactElement => {
     });
   }
 
+  // TODO
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (!value || !completedDate) return error();

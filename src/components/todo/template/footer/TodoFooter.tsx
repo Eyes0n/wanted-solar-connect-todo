@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { Itodo } from 'components/todo/TodoService';
-import { useTodoState } from 'context/TodoContext';
+import { IUser, useUserState } from 'context/TodoContext';
 
 const TodoFooterBlock = styled.div`
   display: flex;
@@ -18,9 +17,10 @@ const LeftText = styled.div`
 `;
 
 const Todofooter = (): ReactElement => {
-  const todos = useTodoState();
+  const todos = useUserState();
 
-  const undoneTasks: Itodo[] = todos.filter((todo) => !todo.done);
+  //TODO
+  const undoneTasks: IUser[] = todos.filter((todo) => !todo.done);
   return (
     <TodoFooterBlock>
       <LeftText className="tasks-left">{undoneTasks.length} items left</LeftText>

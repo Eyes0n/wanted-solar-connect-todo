@@ -8,54 +8,82 @@ export type Itodo = {
   completedDate: string;
 };
 
-const initialTodos: Itodo[] = [];
+export interface IUser {
+  id?: number;
+  email: string;
+  password?: string;
+  isLogged?: boolean;
+  todos?: Itodo[];
+}
+
+const initialTodos: IUser[] = [];
 
 type Action =
-  | { type: 'CREATE'; text: string; completedDate: string }
-  | { type: 'TOGGLE'; id: number }
-  | { type: 'REMOVE'; id: number }
-  | { type: 'LOAD_TODOS'; todos: Itodo[] };
+  | { type: 'SIGN_UP'; info: IUser }
+  | { type: 'SIGN_OUT'; email: string }
+  | { type: 'LOG_IN'; info: IUser }
+  | { type: 'LOG_OUT'; email: string }
+  | { type: 'CREATE_TODO'; text: string; completedDate: string }
+  | { type: 'TOGGLE_TODO'; id: number }
+  | { type: 'REMOVE_TODO'; id: number }
+  | { type: 'LOAD_USERS'; users: IUser[] };
 
-type todoDispatch = Dispatch<Action>;
-
-function todoReducer(state: Itodo[] = initialTodos, action: Action): Itodo[] | undefined {
+function todoReducer(state: IUser[] = initialTodos, action: Action): IUser[] | undefined {
   switch (action.type) {
-    case 'LOAD_TODOS':
-      return state.concat(action.todos);
-    case 'CREATE':
-      const nextId = state.length ? Math.max(...state.map((todo) => todo.id)) + 1 : 1;
-
+    case 'SIGN_UP':
+      return state.concat({
+        ...action.info,
+        isLogged: false,
+      });
+    case 'SIGN_OUT':
+      return state.filter((user: IUser) => user.email !== action.email);
+    case 'LOG_IN':
+      return state.map((user: IUser) =>
+        user.email === action.info.email && user.password === action.info.password
+          ? { ...user, isLogged: !user.isLogged }
+          : user
+      );
+    case 'LOG_OUT':
+      return state.map((user: IUser) =>
+        user.email === action.email ? { ...user, isLogged: !user.isLogged } : user
+      );
+    case 'LOAD_USERS':
+      return state.concat(action.users);
+    case 'CREATE_TODO':
+      const nextId = state.todos.length ? Math.max(...state.map((todo) => todo.id)) + 1 : 1;
       return state.concat({
         id: nextId,
         text: action.text,
         done: false,
         completedDate: action.completedDate,
       });
-    case 'TOGGLE':
+    case 'TOGGLE_TODO':
       return state.map((todo: Itodo) =>
         todo.id === action.id ? { ...todo, done: !todo.done } : todo
       );
-    case 'REMOVE':
+    case 'REMOVE_TODO':
       return state.filter((todo: Itodo) => todo.id !== action.id);
     default:
       return state;
   }
 }
 
-const TodoStateContext = createContext<Itodo[] | null>(null);
-const TodoDispatchContext = createContext<todoDispatch | null>(null);
+type userDispatch = Dispatch<Action>;
+
+const TodoStateContext = createContext<IUser[] | null>(null);
+const UserDispatchContext = createContext<userDispatch | null>(null);
 
 export function TodoProvider({ children }: { children: React.ReactNode }): ReactElement {
   const [state, dispatch] = useReducer(todoReducer, initialTodos);
 
   return (
     <TodoStateContext.Provider value={state || []}>
-      <TodoDispatchContext.Provider value={dispatch}>{children}</TodoDispatchContext.Provider>
+      <UserDispatchContext.Provider value={dispatch}>{children}</UserDispatchContext.Provider>
     </TodoStateContext.Provider>
   );
 }
 
-export function useTodoState(): Itodo[] {
+export function useUserState(): IUser[] {
   const context = useContext(TodoStateContext);
   if (!context) {
     throw new Error('Cannot find TodoProvider');
@@ -63,8 +91,8 @@ export function useTodoState(): Itodo[] {
   return context;
 }
 
-export function useTodoDispatch(): todoDispatch {
-  const context = useContext(TodoDispatchContext);
+export function useTodoDispatch(): userDispatch {
+  const context = useContext(UserDispatchContext);
   if (!context) {
     throw new Error('Cannot find TodoProvider');
   }

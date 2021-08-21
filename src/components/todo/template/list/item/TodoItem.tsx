@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 import { Modal } from 'antd';
 import { CheckOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Itodo } from 'components/todo/TodoService';
-import { useTodoDispatch } from 'context/TodoContext';
+import { Itodo, useTodoDispatch } from 'context/TodoContext';
 
 const Remove = styled.div`
   display: flex;
@@ -72,6 +71,7 @@ interface TodoItemProps {
 const TodoItem = ({ todo }: TodoItemProps): ReactElement => {
   const dispatch = useTodoDispatch();
 
+  //TODO
   const handleToggle = (): void => {
     dispatch({ type: 'TOGGLE', id: todo.id });
   };
