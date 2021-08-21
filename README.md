@@ -27,6 +27,8 @@
 
 ✅ DatePicker 오늘 날짜 기준 이전 날짜 선택 불가 기능 구현
 
+✅ DatePicker default 날짜를 오늘 날짜로 구현
+
 ✅ context api & useReducer 적용으로 인한 TodoService.tsx제거
 
 
